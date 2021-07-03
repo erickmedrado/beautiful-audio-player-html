@@ -1,2 +1,2 @@
-# beautiful-audio-player-html
+# A Beautiful HTML Audio Player
 Controls for an HTML audio player using Javascript
