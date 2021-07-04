@@ -1,11 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
 html, body {
     margin: 0;
     height: 100%;
 }
 
+.col-2 {
+    width: 20%;
+}
+
+.col-8 {
+    width: 60%;
+}
+
 .container {
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 auto 30px;
+}
+
+.audioContainer {
+    max-width: 400px;
+    color: #fff;
+    background-color: #023D6A;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 3rem auto 0;
+}
+
+.trackline {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    margin-top: 3rem;
+    justify-content: space-between;
+}
+
+#songPlay,
+#songPause,
+#songStop,
+#songPlayPause{
+    width: 36px;
+    height: 36px;
+    font-size: 30px;
+    line-height: 37px;
+    text-align: center;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+#songPlay {
+    padding-left: 1px;
+}
+
+#songPlayPause {
+    width: 26px;
+    height: 26px;
+    font-size: 20px;
+    line-height: 26px;
+}
+
+#songTime {
+    font-size: 10px;
+}
+
+#songName {
+    font-size: 10px;
+    font-weight: 400;
+    text-align: right;
+}
+
+#songSlider{
+    height: 2px;
+    background-color: #fff;
+}
+
+#trackProgress{
+    width: 0px;
+    height: 2px;
+    background-color: #2C97B6;
+}
+
+div#trackProgress {
+    width: 100%;
+    display: block;
+}
+
+div#pointerButton {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: #fff;
+    margin-top: -10px;
+    border-radius: 50%;
+}
+
+audio::-webkit-media-controls-panel {
+    border: 0 !important;
+    background-color: #023D6A;
 }
