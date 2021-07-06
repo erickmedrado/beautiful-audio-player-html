@@ -70,6 +70,10 @@ h2 {
     border-radius: 100%;
     cursor: pointer;
     margin: 0 5px;
+    -webkit-user-select: none;  
+    -moz-user-select: none;     
+    -ms-user-select: none;      
+    user-select: none; 
 }
 
 #songTime {
@@ -85,12 +89,20 @@ h2 {
 #songSlider{
     height: 2px;
     background-color: #fff;
+    -webkit-user-select: none;  
+    -moz-user-select: none;     
+    -ms-user-select: none;      
+    user-select: none; 
 }
 
 #trackProgress{
     width: 0px;
     height: 2px;
     background-color: #2C97B6;
+    -webkit-user-select: none;  
+    -moz-user-select: none;     
+    -ms-user-select: none;      
+    user-select: none; 
 }
 
 div#trackProgress {
@@ -105,6 +117,10 @@ div#pointerButton {
     background: #fff;
     margin-top: -10px;
     border-radius: 50%;
+    -webkit-user-select: none;  
+    -moz-user-select: none;     
+    -ms-user-select: none;      
+    user-select: none; 
 }
 
 audio::-webkit-media-controls-panel {

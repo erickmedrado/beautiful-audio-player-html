@@ -13,11 +13,11 @@
 <body>
 	<section class="container">
         <h2>HTML Audio Player</h2>
-        <audio id="song" autostart="0" autostart="false" preload ="none" ontimeupdate="updateTime()">
-            <source src="song.mp3" type="audio/mpeg">
-            Seu navegador não suporta a reprodução de áudio.
-        </audio>
         <div class="audioContainer">
+            <audio id="song" autostart="0" autostart="false" preload ="none" ontimeupdate="updateTime();">
+                <source src="song.mp3" type="audio/mpeg">
+                Seu navegador não suporta a reprodução de áudio.
+            </audio>
             <div class="trackline">
                 <div id="songSlider">
                     <div id="trackProgress">
@@ -29,7 +29,7 @@
             <div id="songName" class="col-8">Twenty One Pilots - Good Day</div>
             <!-- <div id="songPlayPause" class="col-2" onclick="playPause('song')"><i class="las la-play"></i></div> -->
             <div class="buttons">
-                <div id="songPlayPause"  onclick="playPause('song')"><i class="las la-play"></i></div>
+                <div id="songPlayPause" onclick="playPause()"><i class="las la-play"></i></div>
                 <!-- <div id="songPause" onclick="pause()"><i class="las la-pause"></i></div> -->
                 <div id="songStop"  onclick="stopSong()"><i class="las la-stop"></i></div>
                 <div id="songStop"  onclick=""><i class="las la-angle-left"></i></div>

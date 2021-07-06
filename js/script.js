@@ -1,18 +1,19 @@
 var activeSong;
-var player1, onplayhead, playerId, timeline, playhead, timelineWidth,
+var onplayhead, timeline, playhead, timelineWidth,
     trackProgress = document.getElementById('trackProgress'),
-    pointerButton = document.getElementById('pointerButton');
+    pointerButton = document.getElementById('pointerButton'),
+    songTime      = document.getElementById('songTime'),
+    songSlider    = document.getElementById('songSlider')
 
-jQuery(window).on("load", function() {
-    ballSeek();
-    initProgressBar();
+jQuery(document).ready(function($) {
+    activeSong = $("#song")[0];
+    activeSong.addEventListener("timeupdate", timeCal);
 });
 
-function playPause(id) {
-    activeSong = document.getElementById(id);
+function playPause() {
+    ballSeek();
     if (activeSong.paused) {
         document.getElementById("songPlayPause").innerHTML = '<i class="las la-pause"></i>';
-        isPlaying = true;
         activeSong.play();
     } else {
         document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
@@ -21,54 +22,30 @@ function playPause(id) {
 }
 
 function stopSong() {
-    activeSong.currentTime = 0;
     activeSong.pause();
-    document.getElementById('pointerButton').style.marginLeft = 0;
+    activeSong.currentTime = 0;
+    pointerButton.style.marginLeft = 0;
     document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
 }
 
 function updateTime() {
+    var percentageOfSong = (activeSong.currentTime / activeSong.duration);
+    var percentageOfSlider = songSlider.offsetWidth * percentageOfSong;
     var currentSeconds = (Math.floor(activeSong.currentTime % 60) < 10 ? '0' : '') + Math.floor(activeSong.currentTime % 60);
     var currentMinutes = Math.floor(activeSong.currentTime / 60);
-    document.getElementById('songTime').innerHTML = currentMinutes + ":" + currentSeconds + ' / ' + Math.floor(activeSong.duration / 60) + ":" + (Math.floor(activeSong.duration % 60) < 10 ? '0' : '') + Math.floor(activeSong.duration % 60);
 
-    var percentageOfSong = (activeSong.currentTime / activeSong.duration);
-    var percentageOfSlider = document.getElementById('songSlider').offsetWidth * percentageOfSong;
-
-
+    songTime.innerHTML = currentMinutes + ":" + currentSeconds + ' / ' + Math.floor(activeSong.duration / 60) + ":" + (Math.floor(activeSong.duration % 60) < 10 ? '0' : '') + Math.floor(activeSong.duration % 60);
     trackProgress.style.width = pointerButton.style.marginLeft = Math.round(percentageOfSlider) + "px";
     
 }
 
-function initProgressBar() {
-    jQuery(".play-pause").empty().text("PAUSE");
-    player1 = document.getElementById("song");
-    player1.addEventListener("timeupdate", timeCal);
-    var playBtn = jQuery(".play-pause");
-    playBtn.click(function() {
-        if (player1.paused === false) {
-            //asas
-            player1.pause();
-            isPlaying = false;
-            jQuery(".play-pause").empty().text("PLAY");
-        } else {
-            player1.play();
-            isPlaying = true;
-            jQuery(".play-pause").empty().text("PAUSE");
-        }
-    });
-
-}
-
 function timeCal() {
-    var length = player1.duration;
-    var current_time = player1.currentTime;
-
+    var length = activeSong.duration;
+    var current_time = activeSong.currentTime;
     var totalLength = calculateTotalValue(length);
-    jQuery(".end-time").html(totalLength);
-
     var currentTime = calculateCurrentValue(current_time);
-    jQuery(".start-time").html(currentTime);
+    $(".end-time").html(totalLength);
+    $(".start-time").html(currentTime);
 }
 
 function calculateTotalValue(length) {
@@ -94,7 +71,6 @@ function calculateCurrentValue(currentTime) {
 
 function ballSeek() {
     onplayhead = null;
-    playerId = null;
     timeline = document.getElementById("songSlider");
     playhead = document.getElementById("pointerButton");
     timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
@@ -106,8 +82,7 @@ function ballSeek() {
 }
 
 function seek(event) {
-    var player = document.getElementById("song");
-    player.currentTime = player.duration * clickPercent(event, timeline, timelineWidth);
+    activeSong.currentTime = activeSong.duration * clickPercent(event, timeline, timelineWidth);
 }
 
 function clickPercent(e, timeline, timelineWidth) {
@@ -119,17 +94,14 @@ function getPosition(el) {
 }
 
 function drag(e) {
-    player1.removeEventListener("timeupdate", timeCal);
+    activeSong.removeEventListener("timeupdate", timeCal);
     onplayhead = jQuery(this).attr("id");
-    playerId = jQuery(this).parents("section").find("audio").attr("id");
-    var player = document.getElementById(playerId);
     window.addEventListener('mousemove', dragFunc);
-    player.removeEventListener('timeupdate', timeUpdate);
+    activeSong.removeEventListener('timeupdate', timeUpdate);
 }
 
 
 function dragFunc(e) {
-    var player = document.getElementById(onplayhead);
     var newMargLeft = e.clientX - getPosition(timeline);
 
     if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
@@ -145,22 +117,20 @@ function dragFunc(e) {
 
 function mouseUp(e) {
     if (onplayhead != null) {
-        var player = document.getElementById(playerId);
         window.removeEventListener('mousemove', dragFunc);
-        player.currentTime = player.duration * clickPercent(e, timeline, timelineWidth);
-        player1.addEventListener("timeupdate", timeCal);
-        player.addEventListener('timeupdate', timeUpdate);
+        activeSong.currentTime = activeSong.duration * clickPercent(e, timeline, timelineWidth);
+        activeSong.addEventListener("timeupdate", timeCal);
+        activeSong.addEventListener('timeupdate', timeUpdate);
     }
-    onplayhead = null;
+    // onplayhead = null;
 }
 
 function timeUpdate() {
     var song = document.getElementById(onplayhead);
-    var player = document.getElementById(playerId);
-    var playPercent = timelineWidth * (player.currentTime / player.duration);
+    var playPercent = timelineWidth * (activeSong.currentTime / activeSong.duration);
     song.style.marginLeft = playPercent + "px";
-    if (player.currentTime == player.duration) {
-        player.pause();
+    if (activeSong.currentTime == activeSong.duration) {
+        activeSong.pause();
     }
 
 }
