@@ -10,7 +10,7 @@ html, body {
 }
 
 .col-8 {
-    width: 60%;
+    width: 80%;
 }
 
 .container {
@@ -54,7 +54,7 @@ h2 {
     width: 100%;
     display: flex;
     margin-top: 3rem;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 #songPlay,
@@ -69,17 +69,7 @@ h2 {
     border: 2px solid #fff;
     border-radius: 100%;
     cursor: pointer;
-}
-
-#songPlay {
-    padding-left: 1px;
-}
-
-#songPlayPause {
-    width: 26px;
-    height: 26px;
-    font-size: 20px;
-    line-height: 26px;
+    margin: 0 5px;
 }
 
 #songTime {

@@ -2,30 +2,26 @@ var activeSong;
 var player1, onplayhead, playerId, timeline, playhead, timelineWidth;
 jQuery(window).on("load", function() {
     ballSeek();
+    initProgressBar();
 });
-
-function play(id) {
-    document.getElementById("songPlayPause").innerHTML = '<i class="las la-pause"></i>';
-    activeSong = document.getElementById(id);
-    activeSong.play();
-    audioPlay();
-
-}
-
-function pause() {
-    document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
-    activeSong.pause();
-}
 
 function playPause(id) {
     activeSong = document.getElementById(id);
     if (activeSong.paused) {
         document.getElementById("songPlayPause").innerHTML = '<i class="las la-pause"></i>';
+        isPlaying = true;
         activeSong.play();
     } else {
         document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
         activeSong.pause();
     }
+}
+
+function stopSong() {
+    activeSong.currentTime = 0;
+    activeSong.pause();
+    document.getElementById('pointerButton').style.marginLeft = 0;
+    document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
 }
 
 function updateTime() {
@@ -37,20 +33,6 @@ function updateTime() {
     var percentageOfSlider = document.getElementById('songSlider').offsetWidth * percentageOfSong;
 
     document.getElementById('trackProgress').style.width = Math.round(percentageOfSlider) + "px";
-}
-
-function stopSong() {
-    activeSong.currentTime = 0;
-    activeSong.pause();
-    document.getElementById('pointerButton').style.marginLeft = 0;
-    document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
-}
-
-function audioPlay() {
-    var player = $("#song")[0];
-    player.play();
-    initProgressBar();
-    isPlaying = true;
 }
 
 function initProgressBar() {
@@ -117,7 +99,6 @@ function ballSeek() {
     playhead = document.getElementById("pointerButton");
     timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
 
-    console.log(timeline);
     timeline.addEventListener("click", seek);
     playhead.addEventListener('mousedown', drag);
     window.addEventListener('mouseup', mouseUp);
@@ -126,7 +107,6 @@ function ballSeek() {
 
 function seek(event) {
     var player = document.getElementById("song");
-    console.log(player);
     player.currentTime = player.duration * clickPercent(event, timeline, timelineWidth);
 }
 
@@ -141,7 +121,10 @@ function getPosition(el) {
 function drag(e) {
     player1.removeEventListener("timeupdate", timeCal);
     onplayhead = jQuery(this).attr("id");
-    playerId = jQuery(this).parents("li").find("audio").attr("id");
+    playerId = jQuery(this).parents("section").find("audio").attr("id");
+    console.log(playerId);
+    console.log(onplayhead);
+    console.log(playerId);
     var player = document.getElementById(playerId);
     window.addEventListener('mousemove', dragFunc);
     player.removeEventListener('timeupdate', timeUpdate);
@@ -175,6 +158,7 @@ function mouseUp(e) {
 }
 
 function timeUpdate() {
+    console.log(onplayhead);
     var song = document.getElementById(onplayhead);
     var player = document.getElementById(playerId);
     var playPercent = timelineWidth * (player.currentTime / player.duration);
