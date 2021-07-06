@@ -1,5 +1,8 @@
 var activeSong;
-var player1, onplayhead, playerId, timeline, playhead, timelineWidth;
+var player1, onplayhead, playerId, timeline, playhead, timelineWidth,
+    trackProgress = document.getElementById('trackProgress'),
+    pointerButton = document.getElementById('pointerButton');
+
 jQuery(window).on("load", function() {
     ballSeek();
     initProgressBar();
@@ -32,7 +35,9 @@ function updateTime() {
     var percentageOfSong = (activeSong.currentTime / activeSong.duration);
     var percentageOfSlider = document.getElementById('songSlider').offsetWidth * percentageOfSong;
 
-    document.getElementById('trackProgress').style.width = Math.round(percentageOfSlider) + "px";
+
+    trackProgress.style.width = pointerButton.style.marginLeft = Math.round(percentageOfSlider) + "px";
+    
 }
 
 function initProgressBar() {
@@ -56,7 +61,6 @@ function initProgressBar() {
 }
 
 function timeCal() {
-    var width = jQuery("#trackProgress").width();
     var length = player1.duration;
     var current_time = player1.currentTime;
 
@@ -65,10 +69,6 @@ function timeCal() {
 
     var currentTime = calculateCurrentValue(current_time);
     jQuery(".start-time").html(currentTime);
-
-    var progressbar = document.getElementById("pointerButton");
-    progressbar.style.marginLeft = width * (player1.currentTime / player1.duration) + "px";
-
 }
 
 function calculateTotalValue(length) {
@@ -122,9 +122,6 @@ function drag(e) {
     player1.removeEventListener("timeupdate", timeCal);
     onplayhead = jQuery(this).attr("id");
     playerId = jQuery(this).parents("section").find("audio").attr("id");
-    console.log(playerId);
-    console.log(onplayhead);
-    console.log(playerId);
     var player = document.getElementById(playerId);
     window.addEventListener('mousemove', dragFunc);
     player.removeEventListener('timeupdate', timeUpdate);
@@ -158,7 +155,6 @@ function mouseUp(e) {
 }
 
 function timeUpdate() {
-    console.log(onplayhead);
     var song = document.getElementById(onplayhead);
     var player = document.getElementById(playerId);
     var playPercent = timelineWidth * (player.currentTime / player.duration);
