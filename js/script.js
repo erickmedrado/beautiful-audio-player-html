@@ -28,8 +28,19 @@ function stopSong() {
     document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
 }
 
+function songMute() {
+    if (activeSong.muted == false) {
+        activeSong.muted = true;
+        document.getElementById("songMute").innerHTML = '<i class="las la-volume-mute"></i>';
+    } else {
+        activeSong.muted = false;        
+        document.getElementById("songMute").innerHTML = '<i class="las la-volume-up"></i>';
+    }
+}
+
 function volumeBar(vol) {
     activeSong.volume = vol;
+    songMute();
 }
 
 function updateTime() {
