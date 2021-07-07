@@ -28,14 +28,14 @@
             <div id="songTime" class="col-2">0:00 / 0:00</div>
             <div id="songName" class="col-8">Twenty One Pilots - Good Day</div>
             <!-- <div id="songPlayPause" class="col-2" onclick="playPause('song')"><i class="las la-play"></i></div> -->
-            <div class="buttons">
+            <div class="audioControls">
                 <div id="songPlayPause" onclick="playPause()"><i class="las la-play"></i></div>
                 <!-- <div id="songPause" onclick="pause()"><i class="las la-pause"></i></div> -->
                 <div id="songStop"  onclick="stopSong()"><i class="las la-stop"></i></div>
-                <div id="songStop"  onclick=""><i class="las la-angle-left"></i></div>
-                <div id="songStop"  onclick=""><i class="las la-angle-right"></i></div>
-                <div id="songStop"  onclick=""><i class="las la-step-backward"></i></div>
-                <div id="songStop"  onclick=""><i class="las la-step-forward"></i></div>
+                <div id="songPrev"  onclick=""><i class="las la-angle-left"></i></div>
+                <div id="songNext"  onclick=""><i class="las la-angle-right"></i></div>
+                <div id="volumeMute"  onclick=""><i class="las la-volume-up"></i></div>
+                <input type="range" min="0" max="1" step="0.1" onchange="volumeBar(this.value)">
             </div>
         </div>
 	</section>

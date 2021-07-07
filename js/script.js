@@ -28,6 +28,10 @@ function stopSong() {
     document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
 }
 
+function volumeBar(vol) {
+    activeSong.volume = vol;
+}
+
 function updateTime() {
     var percentageOfSong = (activeSong.currentTime / activeSong.duration);
     var percentageOfSlider = songSlider.offsetWidth * percentageOfSong;

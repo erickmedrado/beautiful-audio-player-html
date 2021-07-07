@@ -50,17 +50,14 @@ h2 {
     margin-bottom: 1.5rem;
 }
 
-.buttons {
+.audioControls {
     width: 100%;
     display: flex;
     margin-top: 3rem;
-    justify-content: flex-start;
+    justify-content: space-around;
 }
 
-#songPlay,
-#songPause,
-#songStop,
-#songPlayPause{
+.audioControls div {
     width: 36px;
     height: 36px;
     font-size: 30px;
@@ -86,7 +83,7 @@ h2 {
     text-align: right;
 }
 
-#songSlider{
+#songSlider {
     height: 2px;
     background-color: #fff;
     -webkit-user-select: none;  
@@ -95,7 +92,7 @@ h2 {
     user-select: none; 
 }
 
-#trackProgress{
+#trackProgress {
     width: 0px;
     height: 2px;
     background-color: #2C97B6;
@@ -105,18 +102,24 @@ h2 {
     user-select: none; 
 }
 
+#volumeMute {
+    font-size: 28px;
+    border-color: transparent;
+}
+
 div#trackProgress {
     width: 100%;
     display: block;
 }
 
 div#pointerButton {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     background: #fff;
-    margin-top: -10px;
+    margin-top: -6px;
     border-radius: 50%;
+    box-shadow: 0px 0px 5px #727272;
     -webkit-user-select: none;  
     -moz-user-select: none;     
     -ms-user-select: none;      
@@ -126,4 +129,94 @@ div#pointerButton {
 audio::-webkit-media-controls-panel {
     border: 0 !important;
     background-color: #023D6A;
+}
+
+.audioControls input[type=range] {
+  height: 2px;
+  -webkit-appearance: none;
+  margin: auto 0;
+  width: 30%;
+}
+
+.audioControls input[type=range]:focus {
+  outline: none;
+}
+
+.audioControls input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #2C97B6;
+}
+
+.audioControls input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 5px #727272;
+  border: 0px solid #2497E3;
+  height: 11px;
+  width: 11px;
+  border-radius: 25px;
+  background: #fff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -4px;
+}
+
+.audioControls input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #2C97B6;
+}
+
+.audioControls input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 5px #727272;
+  border: 0px solid #2497E3;
+  height: 11px;
+  width: 11px;
+  border-radius: 24px;
+  background: #2C97B6;
+  cursor: pointer;
+}
+
+.audioControls input[type=range]::-ms-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #2C97B6;
+}
+
+.audioControls input[type=range]::-ms-fill-lower {
+  background: #FFFFFF;
+  border: 0px solid #000000;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #727272;
+}
+
+.audioControls input[type=range]::-ms-fill-upper {
+  background: #FFFFFF;
+  border: 0px solid #000000;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #727272;
+}
+
+.audioControls input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 0px 0px 5px #727272;
+  border: 0px solid #2497E3;
+  height: 11;
+  width: 11;
+  border-radius: 24px;
+  background: #2C97B6;
+  cursor: pointer;
+}
+
+.audioControls input[type=range]:focus::-ms-fill-lower {
+  background: #FFFFFF;
+}
+
+.audioControls input[type=range]:focus::-ms-fill-upper {
+  background: #FFFFFF;
 }
