@@ -40,7 +40,8 @@ function songMute() {
 
 function volumeBar(vol) {
     activeSong.volume = vol;
-    songMute();
+    activeSong.muted = false;        
+    document.getElementById("songMute").innerHTML = '<i class="las la-volume-up"></i>';
 }
 
 function updateTime() {
