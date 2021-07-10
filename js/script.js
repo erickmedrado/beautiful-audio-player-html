@@ -1,5 +1,5 @@
 var activeSong;
-var onplayhead, timeline, playhead, timelineWidth,
+var onplayhead, songSlider, timelineWidth,
     trackProgress = document.getElementById('trackProgress'),
     pointerButton = document.getElementById('pointerButton'),
     songTime      = document.getElementById('songTime'),
@@ -87,22 +87,20 @@ function calculateCurrentValue(currentTime) {
 
 function ballSeek() {
     onplayhead = null;
-    timeline = document.getElementById("songSlider");
-    playhead = document.getElementById("pointerButton");
-    timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+    timelineWidth = songSlider.offsetWidth - pointerButton.offsetWidth;
 
-    timeline.addEventListener("click", seek);
-    playhead.addEventListener('mousedown', drag);
+    songSlider.addEventListener("click", seek);
+    pointerButton.addEventListener('mousedown', drag);
     window.addEventListener('mouseup', mouseUp);
 
 }
 
 function seek(event) {
-    activeSong.currentTime = activeSong.duration * clickPercent(event, timeline, timelineWidth);
+    activeSong.currentTime = activeSong.duration * clickPercent(event, songSlider, timelineWidth);
 }
 
-function clickPercent(e, timeline, timelineWidth) {
-    return (event.clientX - getPosition(timeline)) / timelineWidth;
+function clickPercent(e, songSlider, timelineWidth) {
+    return (event.clientX - getPosition(songSlider)) / timelineWidth;
 }
 
 function getPosition(el) {
@@ -118,23 +116,23 @@ function drag(e) {
 
 
 function dragFunc(e) {
-    var newMargLeft = e.clientX - getPosition(timeline);
+    var newMargLeft = e.clientX - getPosition(songSlider);
 
     if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
-        playhead.style.marginLeft = newMargLeft + "px";
+        pointerButton.style.marginLeft = newMargLeft + "px";
     }
     if (newMargLeft < 0) {
-        playhead.style.marginLeft = "0px";
+        pointerButton.style.marginLeft = "0px";
     }
     if (newMargLeft > timelineWidth) {
-        playhead.style.marginLeft = timelineWidth + "px";
+        pointerButton.style.marginLeft = timelineWidth + "px";
     }
 }
 
 function mouseUp(e) {
     if (onplayhead != null) {
         window.removeEventListener('mousemove', dragFunc);
-        activeSong.currentTime = activeSong.duration * clickPercent(e, timeline, timelineWidth);
+        activeSong.currentTime = activeSong.duration * clickPercent(e, songSlider, timelineWidth);
         activeSong.addEventListener("timeupdate", timeCal);
         activeSong.addEventListener('timeupdate', timeUpdate);
     }
