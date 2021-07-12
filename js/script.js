@@ -1,13 +1,12 @@
 var activeSong;
 var onplayhead, songSlider, timelineWidth,
-    trackProgress = document.getElementById('trackProgress'),
-    pointerButton = document.getElementById('pointerButton'),
-    songTime      = document.getElementById('songTime'),
-    songSlider    = document.getElementById('songSlider')
+    trackProgress = document.querySelector('#trackProgress'),
+    pointerButton = document.querySelector('#pointerButton'),
+    songTime      = document.querySelector('#songTime'),
+    songSlider    = document.querySelector('#songSlider')
 
 jQuery(document).ready(function($) {
     activeSong = $("#song")[0];
-    activeSong.addEventListener("timeupdate", timeCal);
     updateTime();
 });
 
@@ -15,10 +14,10 @@ jQuery(document).ready(function($) {
 function playPause() {
     ballSeek();
     if (activeSong.paused) {
-        document.getElementById("songPlayPause").innerHTML = '<i class="las la-pause"></i>';
+        document.querySelector("#songPlayPause").innerHTML = '<i class="las la-pause"></i>';
         activeSong.play();
     } else {
-        document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
+        document.querySelector("#songPlayPause").innerHTML = '<i class="las la-play"></i>';
         activeSong.pause();
     }
 }
@@ -27,23 +26,23 @@ function stopSong() {
     activeSong.pause();
     activeSong.currentTime = 0;
     pointerButton.style.marginLeft = 0;
-    document.getElementById("songPlayPause").innerHTML = '<i class="las la-play"></i>';
+    document.querySelector("#songPlayPause").innerHTML = '<i class="las la-play"></i>';
 }
 
 function songMute() {
     if (activeSong.muted == false) {
         activeSong.muted = true;
-        document.getElementById("songMute").innerHTML = '<i class="las la-volume-mute"></i>';
+        document.querySelector("#songMute").innerHTML = '<i class="las la-volume-mute"></i>';
     } else {
         activeSong.muted = false;        
-        document.getElementById("songMute").innerHTML = '<i class="las la-volume-up"></i>';
+        document.querySelector("#songMute").innerHTML = '<i class="las la-volume-up"></i>';
     }
 }
 
 function volumeBar(vol) {
     activeSong.volume = vol;
     activeSong.muted = false;        
-    document.getElementById("songMute").innerHTML = '<i class="las la-volume-up"></i>';
+    document.querySelector("#songMute").innerHTML = '<i class="las la-volume-up"></i>';
 }
 
 function updateTime() {
@@ -55,19 +54,6 @@ function updateTime() {
     songTime.innerHTML = currentMinutes + ":" + currentSeconds + ' / ' + Math.floor(activeSong.duration / 60) + ":" + (Math.floor(activeSong.duration % 60) < 10 ? '0' : '') + Math.floor(activeSong.duration % 60);
     trackProgress.style.width = pointerButton.style.marginLeft = Math.round(percentageOfSlider) + "px";
     
-}
-
-function timeCal() {
-    var length = activeSong.duration;
-    var current_time = activeSong.currentTime;
-    var totalLength = calculateTotalValue(length);
-    var currentTime = calculateCurrentValue(current_time);
-    console.log(totalLength);
-    console.log(currentTime);
-    $(".end-time").html(totalLength);
-    $(".start-time").html(currentTime);
-    console.log($(".end-time").html());
-    console.log($(".start-time").html());
 }
 
 function calculateTotalValue(length) {
@@ -114,12 +100,10 @@ function getPosition(el) {
 }
 
 function drag(e) {
-    activeSong.removeEventListener("timeupdate", timeCal);
     onplayhead = jQuery(this).attr("id");
     window.addEventListener('mousemove', dragFunc);
     activeSong.removeEventListener('timeupdate', timeUpdate);
 }
-
 
 function dragFunc(e) {
     var newMargLeft = e.clientX - getPosition(songSlider);
@@ -139,18 +123,14 @@ function mouseUp(e) {
     if (onplayhead != null) {
         window.removeEventListener('mousemove', dragFunc);
         activeSong.currentTime = activeSong.duration * clickPercent(e, songSlider, timelineWidth);
-        activeSong.addEventListener("timeupdate", timeCal);
         activeSong.addEventListener('timeupdate', timeUpdate);
     }
-    // onplayhead = null;
+    onplayhead = null;
 }
 
 function timeUpdate() {
-    var song = document.getElementById(onplayhead);
     var playPercent = timelineWidth * (activeSong.currentTime / activeSong.duration);
-    song.style.marginLeft = playPercent + "px";
     if (activeSong.currentTime == activeSong.duration) {
         activeSong.pause();
     }
-
 }
