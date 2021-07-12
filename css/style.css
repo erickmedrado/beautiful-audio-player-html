@@ -85,6 +85,7 @@ h2 {
 
 #songSlider {
     height: 2px;
+    cursor: pointer;
     background-color: #fff;
     -webkit-user-select: none;  
     -moz-user-select: none;     
@@ -115,6 +116,7 @@ div#trackProgress {
 div#pointerButton {
     width: 15px;
     height: 15px;
+    cursor: pointer;
     position: absolute;
     background: #fff;
     margin-top: -6px;

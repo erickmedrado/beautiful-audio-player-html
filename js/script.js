@@ -8,7 +8,9 @@ var onplayhead, songSlider, timelineWidth,
 jQuery(document).ready(function($) {
     activeSong = $("#song")[0];
     activeSong.addEventListener("timeupdate", timeCal);
+    updateTime();
 });
+
 
 function playPause() {
     ballSeek();
@@ -60,8 +62,12 @@ function timeCal() {
     var current_time = activeSong.currentTime;
     var totalLength = calculateTotalValue(length);
     var currentTime = calculateCurrentValue(current_time);
+    console.log(totalLength);
+    console.log(currentTime);
     $(".end-time").html(totalLength);
     $(".start-time").html(currentTime);
+    console.log($(".end-time").html());
+    console.log($(".start-time").html());
 }
 
 function calculateTotalValue(length) {
