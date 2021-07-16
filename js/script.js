@@ -134,3 +134,11 @@ function timeUpdate() {
         activeSong.pause();
     }
 }
+
+function test() {
+    let i = 1;
+    let a = 2;
+
+    let b = a+i;
+    console.log(b);
+}
